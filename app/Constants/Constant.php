@@ -4,11 +4,10 @@ namespace App\Constants;
 
 class Constant
 {
-    
     // TASK_PRIORITY
-    const TASK_PRIORITY_LOW    = 'low';
-    const TASK_PRIORITY_MEDIUM = 'medium';
-    const TASK_PRIORITY_HIGH   = 'high';
+    const TASK_PRIORITY_LOW    = 'LOW';
+    const TASK_PRIORITY_MEDIUM = 'MEDIUM';
+    const TASK_PRIORITY_HIGH   = 'HIGH';
     const TASK_PRIORITIES      = [
         self::TASK_PRIORITY_LOW,
         self::TASK_PRIORITY_MEDIUM,
@@ -16,9 +15,9 @@ class Constant
     ];
 
     // TASK_STATUS
-    const TASK_STATUS_TODO        = 'todo';
-    const TASK_STATUS_IN_PROGRESS = 'in_progress';
-    const TASK_STATUS_DONE        = 'done';
+    const TASK_STATUS_TODO        = 'TODO';
+    const TASK_STATUS_IN_PROGRESS = 'IN_PROGRESS';
+    const TASK_STATUS_DONE        = 'DONE';
     const TASK_STATUSES           = [
         self::TASK_STATUS_TODO,
         self::TASK_STATUS_IN_PROGRESS,
@@ -26,9 +25,9 @@ class Constant
     ];
 
     //PROJECT_STATUS
-    const PROJECT_STATUS_ACTIVE    = 'active';
-    const PROJECT_STATUS_COMPLETED = 'completed';
-    const PROJECT_STATUS_ARCHIVED  = 'archived';
+    const PROJECT_STATUS_ACTIVE    = 'ACTIVE';
+    const PROJECT_STATUS_COMPLETED = 'COMPLETED';
+    const PROJECT_STATUS_ARCHIVED  = 'ARCHIVED';
     const PROJECT_STATUSES         = [
         self::PROJECT_STATUS_ACTIVE,
         self::PROJECT_STATUS_COMPLETED,

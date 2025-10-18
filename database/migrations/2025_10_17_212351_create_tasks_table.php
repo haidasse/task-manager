@@ -21,6 +21,7 @@ return new class extends Migration
         $table->enum('status', Constant::TASK_STATUSES)->default(Constant::TASK_STATUS_TODO);
         $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
         $table->timestamps();
+        $table->softDeletes();
         });
     }
 

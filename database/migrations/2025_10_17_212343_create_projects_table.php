@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained(10)->onDelete('cascade');
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->string('title');
         $table->text('description')->nullable();
         $table->enum('status', Constant::PROJECT_STATUSES)->default(Constant::PROJECT_STATUS_ACTIVE);
         $table->timestamps();
+        $table->softDeletes();
         });
     }
 
