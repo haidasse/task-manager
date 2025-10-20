@@ -1,58 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Task Manager Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a task management application built with Laravel, Livewire, and Bootstrap 5, featuring user authentication, project management, and task tracking.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   **User Authentication**: Powered by Laravel Breeze (registration, login, profile management).
+-   **Project Management**:
+    -   Create, view, update, and delete projects.
+    -   List projects with status filtering.
+    -   Projects belong to a user (creator).
+-   **Task Management**:
+    -   CRUD operations for tasks within a project.
+    -   Tasks have priority (low/medium/high) and status (todo/in_progress/done).
+    -   Tasks can be assigned to other users.
+    -   Filter tasks by status and priority.
+-   **Livewire Components**:
+    -   **TaskBoard**: Displays tasks in columns (Todo, In Progress, Done) with real-time status updates via drag & drop. Includes task counters.
+    -   **QuickAddTask**: A form for quickly adding tasks to a project without page reload, with success notifications.
+-   **Authorization (Gates & Policies)**:
+    -   `ProjectPolicy`: Only the project creator can view, update, or delete their projects.
+    -   `TaskPolicy`:
+        -   `create`: Project creator can create tasks.
+        -   `update`: Project creator or assigned user can update a task.
+        -   `delete`: Only the project creator can delete a task.
+-   **Responsive Design**: Built with Bootstrap 5 for a mobile-first experience.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technical Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Laravel**: v11 (or latest stable)
+-   **PHP**: 8.2+
+-   **Database**: MySQL/PostgreSQL
+-   **Frontend**:
+    -   **Laravel Breeze**: For authentication scaffolding.
+    -   **Livewire**: v3+ for dynamic frontend components.
+    -   **Bootstrap**: v5 for styling and responsive layout.
+-   **Other**: FormRequest validation, Database Seeders.
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/task-manager.git
+    cd task-manager
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2.  **Install PHP dependencies:**
+    ```bash
+    composer install
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3.  **Install JavaScript dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Laravel Sponsors
+4.  **Create a copy of the `.env.example` file and name it `.env`:**
+    ```bash
+    cp .env.example .env
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5.  **Generate an application key:**
+    ```bash
+    php artisan key:generate
+    ```
 
-### Premium Partners
+6.  **Configure your database in `.env`:**
+    ```dotenv
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=task_manager_db
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+    (Make sure to create the `task_manager_db` database in your MySQL server.)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+7.  **Run migrations and seed the database:**
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+    This will set up the database schema and populate it with test data (users, projects, tasks).
 
-## Contributing
+8.  **Compile frontend assets:**
+    ```bash
+    npm run dev
+    # Or for production:
+    # npm run build
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+9.  **Start the Laravel development server:**
+    ```bash
+    php artisan serve
+    ```
 
-## Code of Conduct
+The application will be accessible at `http://127.0.0.1:8000`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Test Accounts
 
-## Security Vulnerabilities
+You can log in with the following credentials:
+
+*   **Email**: `john@example.com` / **Password**: `password`
+*   **Email**: `jane@example.com` / **Password**: `password`
+*   **Email**: `bob@example.com` / **Password**: `password`
+
+## Technical Choices
+
+*   **Laravel Breeze**: Chosen for rapid authentication scaffolding, providing a solid foundation for user management without much boilerplate.
+*   **Livewire 3**: Selected for building dynamic frontend components (TaskBoard, QuickAddTask) with a PHP-first approach, reducing the need for extensive JavaScript and simplifying state management between frontend and backend.
+*   **Bootstrap 5**: Utilized for its comprehensive set of responsive UI components, allowing for a clean and mobile-friendly interface with minimal custom CSS.
+*   **FormRequest Validation**: Ensures robust server-side validation for all forms, separating validation logic from controllers.
+*   **Gates & Policies**: Implemented for granular authorization control, ensuring that users can only interact with resources they are permitted to access, aligning with the principle of least privilege.
+
+---
+
+This README provides comprehensive instructions for setting up and understanding the application.
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
