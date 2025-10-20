@@ -27,12 +27,12 @@ This is a task management application built with Laravel, Livewire, and Bootstra
 
 ## Technical Stack
 
--   **Laravel**: v11 (or latest stable)
--   **PHP**: 8.2+
--   **Database**: MySQL/PostgreSQL
+-   **Laravel**: v12
+-   **PHP**: 8.2
+-   **Database**: MySQL
 -   **Frontend**:
     -   **Laravel Breeze**: For authentication scaffolding.
-    -   **Livewire**: v3+ for dynamic frontend components.
+    -   **Livewire**: v3.6 for dynamic frontend components.
     -   **Bootstrap**: v5 for styling and responsive layout.
 -   **Other**: FormRequest validation, Database Seeders.
 
@@ -40,7 +40,7 @@ This is a task management application built with Laravel, Livewire, and Bootstra
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/task-manager.git
+    git clone https://github.com/haidasse/task-manager.git
     cd task-manager
     ```
 
@@ -69,11 +69,11 @@ This is a task management application built with Laravel, Livewire, and Bootstra
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=task_manager_db
+    DB_DATABASE=task_manager
     DB_USERNAME=root
     DB_PASSWORD=
     ```
-    (Make sure to create the `task_manager_db` database in your MySQL server.)
+    (Make sure to create the `task_manager` database in your MySQL server.)
 
 7.  **Run migrations and seed the database:**
     ```bash
@@ -99,9 +99,9 @@ The application will be accessible at `http://127.0.0.1:8000`.
 
 You can log in with the following credentials:
 
-*   **Email**: `john@example.com` / **Password**: `password`
-*   **Email**: `jane@example.com` / **Password**: `password`
-*   **Email**: `bob@example.com` / **Password**: `password`
+*   **Email**: `test@example.com` / **Password**: `password`
+*   **Email**: `test1@example.com` / **Password**: `password`
+*   **Email**: `test2@example.com` / **Password**: `password`
 
 ## Technical Choices
 
