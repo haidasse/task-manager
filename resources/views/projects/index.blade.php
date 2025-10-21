@@ -1,6 +1,5 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
 <div class="container">
     <h1 class="mb-4">Mes Projets</h1>
 
@@ -62,4 +61,4 @@
 
     {{ $projects->withQueryString()->links() }}
 </div>
-@endsection
+</x-app-layout>

@@ -8,81 +8,84 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
-    public function __construct()
+  public function __construct()
     {
         $this->middleware('auth');
     }
 
-    // Liste les projets de l'utilisateur
-    public function index()
+    // Liste des projets du user
+    public function index(Request $request)
     {
-        $projects = Project::where('user_id', Auth::id())
-            ->when(request('status'), fn($q) => $q->where('status', request('status')))
-            ->latest()
-            ->paginate(6);
+        $query = Project::where('user_id', Auth::id());
+
+        if ($status = $request->get('status')) {
+            $query->where('status', $status);
+        }
+
+        $projects = $query->latest()->paginate(6);
 
         return view('projects.index', compact('projects'));
     }
 
-    // Formulaire de création
+    // Formulaire création projet
     public function create()
     {
         return view('projects.create');
     }
 
-    // Stocke un nouveau projet
+    // Stocker projet
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:active,completed,archived'
-        ]);
-
-        $validated['user_id'] = Auth::id();
-
-        Project::create($validated);
-
-        return redirect()->route('projects.index')->with('success', 'Projet créé avec succès.');
-    }
-
-    // Affiche un projet
-    public function show(Project $project)
-    {
-        $this->authorize('view', $project);
-
-        return view('projects.show', compact('project'));
-    }
-
-    // Formulaire d'édition
-    public function edit(Project $project)
-    {
-        $this->authorize('update', $project);
-
-        return view('projects.edit', compact('project'));
-    }
-
-    // Met à jour un projet
-    public function update(Request $request, Project $project)
-    {
-        $this->authorize('update', $project);
-
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'status' => 'required|in:active,completed,archived',
         ]);
 
-        $project->update($validated);
+        Project::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'status' => $request->status,
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->route('projects.index')->with('success', 'Projet créé avec succès.');
+    }
+
+    // Afficher un projet
+    public function show(Project $project)
+    {
+        $this->authorize('view', $project);
+        return view('projects.show', compact('project'));
+    }
+
+    // Formulaire édition
+    public function edit(Project $project)
+    {
+        $this->authorize('update', $project);
+        return view('projects.edit', compact('project'));
+    }
+
+    // Mise à jour
+    public function update(Request $request, Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:active,completed,archived',
+        ]);
+
+        $project->update($request->only('title', 'description', 'status'));
 
         return redirect()->route('projects.index')->with('success', 'Projet mis à jour.');
     }
 
-    // Supprime un projet
+    // Supprimer
     public function destroy(Project $project)
     {
         $this->authorize('delete', $project);
-
         $project->delete();
 
         return redirect()->route('projects.index')->with('success', 'Projet supprimé.');

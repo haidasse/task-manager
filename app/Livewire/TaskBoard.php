@@ -2,26 +2,43 @@
 
 namespace App\Livewire;
 
+use App\Models\Project;
 use Livewire\Component;
 
 class TaskBoard extends Component
 {
-   public $project;
+    public Project $project;
 
-    public function render()
+    protected $listeners = ['taskUpdated' => '$refresh'];
+
+    public function mount(Project $project)
     {
-        $tasks = [
-            'todo'        => $this->project->tasks()->where('status', 'todo')->get(),
-            'in_progress' => $this->project->tasks()->where('status', 'in_progress')->get(),
-            'done'        => $this->project->tasks()->where('status', 'done')->get(),
-        ];
-
-        return view('livewire.task-board', compact('tasks'));
+        $this->project = $project;
     }
 
     public function changeStatus($taskId, $status)
     {
-        $task = Task::findOrFail($taskId);
+        $task = $this->project->tasks()->find($taskId);
+
+        if (!$task) {
+            session()->flash('error', 'Tâche non trouvée.');
+            return;
+        }
+
         $task->update(['status' => $status]);
+        $this->dispatch('task-updated');
+    }
+
+    public function render()
+    {
+        $tasksByStatus = [
+            'TODO'        => $this->project->tasks()->where('status', 'TODO')->get(),
+            'IN_PROGRESS' => $this->project->tasks()->where('status', 'IN_PROGRESS')->get(),
+            'DONE'        => $this->project->tasks()->where('status', 'DONE')->get(),
+        ];
+
+        return view('livewire.task-board', [
+            'tasksByStatus' => $tasksByStatus
+        ]);
     }
 }

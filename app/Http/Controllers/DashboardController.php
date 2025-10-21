@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Task;
+use App\Constants\Constant;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -22,7 +23,7 @@ class DashboardController extends Controller
         $totalProjects = Project::where('user_id', $userId)->count();
         $totalTasks = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))->count();
         $pendingTasks = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))
-                            ->where('status', TaskConstant::STATUS_TODO)
+                            ->where('status', Constant::TASK_STATUS_TODO)
                             ->count();
 
         // Projets récents

@@ -1,7 +1,4 @@
-
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
 <div class="container">
     <h1>Modifier le Projet</h1>
 
@@ -41,4 +38,4 @@
         <a href="{{ route('projects.index') }}" class="btn btn-secondary">Annuler</a>
     </form>
 </div>
-@endsection
+</x-app-layout>

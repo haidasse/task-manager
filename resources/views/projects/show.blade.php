@@ -1,6 +1,5 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
 <div class="container">
     <h1>{{ $project->title }}</h1>
     <p>{{ $project->description }}</p>
@@ -20,4 +19,4 @@
     <!-- Task Board -->
     <livewire:task-board :project="$project" />
 </div>
-@endsection
+</x-app-layout>

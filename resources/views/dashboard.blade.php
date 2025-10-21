@@ -36,7 +36,7 @@
 
             <!-- Tâches par status -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                @foreach(['todo' => 'À faire', 'in_progress' => 'En cours', 'done' => 'Terminée'] as $status => $label)
+                @foreach(['TODO' => 'À faire', 'IN_PROGRESS' => 'En cours', 'DONE' => 'Terminée'] as $status => $label)
                     <div class="bg-white shadow rounded-lg p-4">
                         <h5 class="font-semibold mb-3">{{ $label }} ({{ $tasks[$status]->count() ?? 0 }})</h5>
                         @foreach($tasks[$status] ?? [] as $task)
