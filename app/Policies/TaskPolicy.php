@@ -9,19 +9,30 @@ use Illuminate\Auth\Access\Response;
 
 class TaskPolicy
 {
-public function create(User $user, Project $project)
+
+    public function view(User $user, Task $task): bool
     {
-        // Tous les membres du projet peuvent créer une tâche
-        return $user->id === $project->user_id; // ou ajouter membres via pivot si besoin
+        $project = Project::find($task->project_id);
+
+        return $user->id === $project->user_id || $user->id === $task->assigned_to;
+    }
+
+    public function create(User $user, Project $project)
+    {
+        return $user->id === $project->user_id;
     }
 
     public function update(User $user, Task $task)
     {
-        return $user->id === $task->project->user_id || $user->id === $task->assigned_to;
+        $project = Project::find($task->project_id);
+
+        return $user->id === $project->user_id || $user->id === $task->assigned_to;
     }
 
     public function delete(User $user, Task $task)
     {
-        return $user->id === $task->project->user_id;
+       $project = Project::find($task->project_id);
+
+        return $user->id === $project->user_id;
     }
 }

@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{task}/status', [TaskController::class, 'update'])
-        ->name('tasks.updateStatus')
+        ->name('tasks.update')
         ->middleware('can:update,task');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
         ->name('tasks.destroy')

@@ -9,11 +9,14 @@ class TaskBoard extends Component
 {
     public Project $project;
 
+    public $tasksByStatus = [];
+
     protected $listeners = ['taskUpdated' => '$refresh'];
 
     public function mount(Project $project)
     {
         $this->project = $project;
+        $this->loadTasks();
     }
 
     public function changeStatus($taskId, $status)
@@ -26,19 +29,32 @@ class TaskBoard extends Component
         }
 
         $task->update(['status' => $status]);
+        $this->loadTasks();
         $this->dispatch('task-updated');
     }
 
-    public function render()
+    public function deleteTask($taskId)
     {
-        $tasksByStatus = [
+        $task = $this->project->tasks()->find($taskId);
+
+        if ($task) {
+            $task->delete();
+            $this->loadTasks();
+            session()->flash('success', 'Tâche supprimée avec succès.');
+        }
+    }
+
+    protected function loadTasks()
+    {
+        $this->tasksByStatus = [
             'TODO'        => $this->project->tasks()->where('status', 'TODO')->get(),
             'IN_PROGRESS' => $this->project->tasks()->where('status', 'IN_PROGRESS')->get(),
             'DONE'        => $this->project->tasks()->where('status', 'DONE')->get(),
         ];
+    }
 
-        return view('livewire.task-board', [
-            'tasksByStatus' => $tasksByStatus
-        ]);
+    public function render()
+    {
+        return view('livewire.task-board');
     }
 }

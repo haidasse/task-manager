@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Constants\Constant;
 use App\Models\Project;
+use App\Models\User;
 use Livewire\Component;
 
 class QuickAddTask extends Component
@@ -12,6 +13,7 @@ class QuickAddTask extends Component
     public $title;
     public $priority = Constant::TASK_PRIORITY_LOW;
     public $assigned_to;
+
     protected $listeners = [
         'task-added' => 'refreshTasks'
     ];
@@ -30,6 +32,7 @@ class QuickAddTask extends Component
     public function addTask()
     {
         $this->validate();
+
         $this->project->tasks()->create([
             'title'       => $this->title,
             'priority'    => $this->priority,
@@ -38,12 +41,14 @@ class QuickAddTask extends Component
         ]);
 
         $this->reset(['title', 'priority', 'assigned_to']);
-        session()->flash('success', 'task created !');
+        session()->flash('success', 'Tâche créée avec succès !');
         $this->dispatch('task-added');
     }
 
     public function render()
     {
-        return view('livewire.quick-add-task');
+        $users = User::where('id', '!=', auth()->id())->get();
+        
+        return view('livewire.quick-add-task', compact('users'));
     }
 }
