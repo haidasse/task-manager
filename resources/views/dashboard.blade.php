@@ -106,8 +106,8 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            @foreach(['TODO' => ['À faire', 'warning'], 
-                                     'IN_PROGRESS' => ['En cours', 'primary'], 
+                            @foreach(['TODO' => ['À faire', 'warning'],
+                                     'IN_PROGRESS' => ['En cours', 'primary'],
                                      'DONE' => ['Terminée', 'success']] as $status => [$label, $color])
                                 <div class="mb-4">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -121,11 +121,11 @@
                                             {{ $label }}
                                         </h6>
                                         <span class="badge bg-{{ $color }} rounded-pill">
-                                            {{ $tasks[$status]->count() ?? 0 }}
+                                            {{  isset($tasks[$status]) ? $tasks[$status]->count() : 0 }}
                                         </span>
                                     </div>
                                     
-                                    @foreach(($tasks[$status] ?? [])->take(3) as $task)
+                                    @foreach(($tasks[$status] ?? collect())->take(3) as $task)
                                         <div class="card border mb-2 border-{{ $color }} border-opacity-25">
                                             <div class="card-body py-2">
                                                 <div class="d-flex justify-content-between align-items-start">
@@ -138,7 +138,7 @@
                                         </div>
                                     @endforeach
                                     
-                                    @if(($tasks[$status] ?? [])->count() > 3)
+                                    @if( isset($tasks[$status]) ? $tasks[$status]->count() : 0)
                                         <div class="text-center mt-2">
                                             <small class="text-muted">
                                                 +{{ ($tasks[$status]->count() ?? 0) - 3 }} autres tâches

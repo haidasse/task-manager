@@ -41,8 +41,8 @@ class QuickAddTask extends Component
         ]);
 
         $this->reset(['title', 'priority', 'assigned_to']);
-        session()->flash('success', 'Tâche créée avec succès !');
         $this->dispatch('task-added');
+        session()->flash('success', 'Tâche créée avec succès !');
     }
 
     public function render()

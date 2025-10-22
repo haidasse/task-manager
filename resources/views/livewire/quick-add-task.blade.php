@@ -19,9 +19,9 @@
                 <!-- Titre de la tâche -->
                 <div class="col-12 col-md-5">
                     <label class="form-label fw-medium">Titre de la tâche</label>
-                    <input type="text" 
+                    <input type="text"
                            class="form-control @error('title') is-invalid @enderror" 
-                           wire:model="title" 
+                           wire:model="title"
                            placeholder="Entrez le titre de la tâche..."
                            required>
                     @error('title')
@@ -34,7 +34,7 @@
                     <label class="form-label fw-medium">Priorité</label>
                     <select class="form-select @error('priority') is-invalid @enderror" 
                             wire:model="priority">
-                        <option value="low">🟢 Basse</option>
+                        <option value="LOW">🟢 Basse</option>
                         <option value="medium">🟡 Moyenne</option>
                         <option value="high">🔴 Haute</option>
                     </select>

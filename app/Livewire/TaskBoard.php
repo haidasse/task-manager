@@ -11,7 +11,8 @@ class TaskBoard extends Component
 
     public $tasksByStatus = [];
 
-    protected $listeners = ['taskUpdated' => '$refresh'];
+    protected $listeners = ['taskUpdated' => '$refresh', 'taskAdded' => '$refresh'];
+
 
     public function mount(Project $project)
     {
@@ -30,17 +31,22 @@ class TaskBoard extends Component
 
         $task->update(['status' => $status]);
         $this->loadTasks();
-        $this->dispatch('task-updated');
+        $event = ['task-updated', 'task-added'];
+        $this->dispatch($event);
     }
 
     public function deleteTask($taskId)
     {
         $task = $this->project->tasks()->find($taskId);
 
-        if ($task) {
+
+        if ($task && auth()->user()->can('delete', $task)) {
             $task->delete();
             $this->loadTasks();
             session()->flash('success', 'Tâche supprimée avec succès.');
+        }
+        else {
+            session()->flash('error', 'Vous n\'êtes pas autorisé à supprimer cette tâche ou elle est introuvable.');
         }
     }
 

@@ -19,17 +19,14 @@ class DashboardController extends Controller
     {
         $userId = Auth::id();
 
-        // Statistiques
-        $totalProjects = Project::where('user_id', $userId)->count();
-        $totalTasks = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))->count();
-        $pendingTasks = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))
+        $totalProjects = Project::where('user_id', $userId)->count() ?? 0;
+        $totalTasks    = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))->count() ?? 0;
+        $pendingTasks  = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))
                             ->where('status', Constant::TASK_STATUS_TODO)
-                            ->count();
+                            ->count() ?? 0;
 
-        // Projets récents
         $projects = Project::where('user_id', $userId)->latest()->take(5)->get();
 
-        // Tâches récentes groupées par status
         $tasks = Task::whereHas('project', fn($q) => $q->where('user_id', $userId))
                     ->latest()
                     ->take(20)

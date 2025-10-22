@@ -1,6 +1,5 @@
 <x-app-layout>
     <div class="container py-4">
-        <!-- En-tête -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3 fw-bold text-primary mb-0">
                 <i class="fas fa-folder me-2"></i>Mes Projets
@@ -10,7 +9,6 @@
             </a>
         </div>
 
-        <!-- Filtres par statut -->
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body py-3">
                 <div class="d-flex flex-wrap gap-2 align-items-center">
