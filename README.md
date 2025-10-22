@@ -99,9 +99,9 @@ The application will be accessible at `http://127.0.0.1:8000`.
 
 You can log in with the following credentials:
 
-*   **Email**: `test@example.com` / **Password**: `password`
-*   **Email**: `test1@example.com` / **Password**: `password`
-*   **Email**: `test2@example.com` / **Password**: `password`
+*   **Email**: `user-1@email.com` / **Password1**: `password`
+*   **Email**: `user-2@email.com` / **Password2**: `password`
+*   **Email**: `user-3@email.com` / **Password3**: `password`
 
 ## Technical Choices
 
