@@ -16,12 +16,18 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
-        $task  = Task::where('assigned_to', Auth::id());
-        $query = Project::where('user_id', Auth::id())->orWhereIn('id', $task->pluck('project_id'));
+        $user = Auth::user();
+
+        $query = Project::where(function($q) use ($user) {
+            $q->where('user_id', $user->id)
+            ->orWhereHas('tasks', function($taskQuery) use ($user) {
+                $taskQuery->where('assigned_to', $user->id);
+            });
+        });
+
         if ($status = $request->get('status')) {
             $query->where('status', $status);
         }
-
         $projects = $query->latest()->paginate(6);
 
         return view('projects.index', compact('projects'));

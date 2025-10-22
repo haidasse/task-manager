@@ -10,7 +10,7 @@
                             <p class="text-muted mb-3">{{ $project->description }}</p>
                         @endif
                         <div class="d-flex align-items-center gap-3">
-                            <span class="badge 
+                            <span class="badge
                                 @if($project->status === 'active') bg-success
                                 @elseif($project->status === 'completed') bg-secondary
                                 @else bg-dark

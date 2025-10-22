@@ -36,7 +36,6 @@ class TaskController extends Controller
         $this->authorize('update', $task);
         $users = User::where('id', '!=', auth()->id())->get();
 
-
         return view('tasks.update', compact('task', 'users'));
     }
 
@@ -58,7 +57,6 @@ class TaskController extends Controller
 
         return view('projects.show', compact('project'));
     }
-
 
     public function update(Request $request, Task $task)
     {

@@ -40,6 +40,7 @@
                                     @endif
                                 </div>
                             </div>
+                            @can('update', $task)
                             <select class="form-select form-select-sm w-auto"
                             wire:change="changeStatus({{ $task->id }}, $event.target.value)"
                             style="min-width: 120px;">
@@ -47,8 +48,6 @@
                             <option value="IN_PROGRESS" @selected($task->status == 'IN_PROGRESS')>En cours</option>
                             <option value="DONE" @selected($task->status == 'DONE')>Terminée</option>
                         </select>
-
-                            @can('update', $task)
                                 <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm" title="Modifier la tâche">
                                     <i class="fas fa-edit me-1"></i>Modifier
                                 </a>
