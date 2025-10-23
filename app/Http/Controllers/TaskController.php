@@ -72,14 +72,17 @@ class TaskController extends Controller
 
         $task->update($request->all());
 
-        return back()->with('success', 'Tâche mise à jour.');
+        $project = $task->project;
+
+        return view('projects.show', compact('project'));
     }
 
     public function destroy(Task $task)
     {
         $this->authorize('delete', $task);
         $task->delete();
+        $project = $task->project;
 
-        return back()->with('success', 'Tâche supprimée.');
+        return view('projects.show', compact('project'));
     }
 }
